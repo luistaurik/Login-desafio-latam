@@ -1,34 +1,48 @@
-import { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importamos el CSS de Bootstrap
-import { Alert } from 'react-bootstrap'; // Importamos el componente de Alert de react-bootstrap
+import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Alert } from 'react-bootstrap';
 
 const Formulario = ({ onSuccess, onError }) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [edad, setEdad] = useState("");
   const [email, setEmail] = useState("");
+  const [conemail, setConEmail] = useState("");
   const [error, setError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   const validarDatos = (e) => {
     e.preventDefault();
 
-    if (nombre === '' || apellido === '' || edad === '' || email === '') {
+    setError(false);
+    setEmailError(false);
+
+    if (nombre === '' || apellido === '' || edad === '' || email === '' || conemail === '') {
       setError(true);
       onError("Todos los campos son obligatorios");
       return;
     }
-    setError(false);
+    
+    if (email !== conemail) {
+      setEmailError(true);
+      setError(true);
+      onError("Los correos electrónicos no coinciden");
+      return;
+    }
+    
     setNombre('');
     setApellido('');
     setEdad('');
     setEmail('');
-    onSuccess("Registro exitoso"); // Enviamos un mensaje de éxito
+    setConEmail('');
+    onSuccess("Registro exitoso");
   }
 
   return (
     <>
       <form className="formulario" onSubmit={validarDatos}>
-        {error ? <Alert variant="danger">Todos los campos son obligatorios</Alert> : null}
+        {error && <Alert variant="danger">Todos los campos son obligatorios</Alert>}
+        {emailError && <Alert variant="danger">Los correos electrónicos no coinciden</Alert>}
         <div className="form-group">
           <label>Nombre</label>
           <input
@@ -69,12 +83,22 @@ const Formulario = ({ onSuccess, onError }) => {
             value={email}
           />
         </div>
+        <div className="form-group">
+          <label>Confirmar Email</label>
+          <input
+            type="text"
+            name="conemail"
+            className="form-control"
+            onChange={(e) => setConEmail(e.target.value)}
+            value={conemail}
+          />
+        </div>
         <button type="submit" className="btn btn-primary">
           Enviar
         </button>
       </form>
       <h1>Datos ingresados</h1>
-      {nombre} - {apellido} - {edad} - {email}
+      {nombre} - {apellido} - {edad} - {email} - {conemail}
     </>
   );
 };
