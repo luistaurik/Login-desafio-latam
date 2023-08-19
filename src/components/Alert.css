@@ -1,7 +1,19 @@
 .alert {
-    margin: 15px 0;
+    margin: 0;
     border-radius: 20px;
     font-weight: 600;
     font-size: 18px;
-    color: red;
+    width: 90%;
+}
+
+.alert-danger {
+    color: white;
+    background-color: #dc3545;
+    border: 0px;
+}
+
+.alert-success {
+    color: white;
+    background-color: #28a745;
+    border: 0px;
 }

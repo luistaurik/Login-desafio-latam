@@ -63,10 +63,17 @@ const Formulario = ({ onSuccess, onError }) => {
     ) {
       onError("Corrige los errores en el formulario");
       return;
+    } else if (
+      !nombreError &&
+      !apellidoError &&
+      !edadError &&
+      !emailError &&
+      !conemailError &&
+      !generoError
+    ) {
+      onSuccess("Registro exitoso");
+      return;
     }
-
-    onSuccess("Registro exitoso");
-    return;
   };
 
   function refresh(onSuccess) {
@@ -146,6 +153,7 @@ const Formulario = ({ onSuccess, onError }) => {
       </form>
     </>
   );
+  console.log(generoError)
 };
 
 export default Formulario;

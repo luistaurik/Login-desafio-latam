@@ -1,3 +1,12 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 0;
+}
+
 .options-text {
     font-size: 14px;
     margin: 10px 0;
@@ -5,5 +14,4 @@
 
 .social-section {
     display: flex;
-    flex-direction: column;
 }
