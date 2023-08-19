@@ -11,7 +11,7 @@ function App() {
         <Col>
           <h1>Formulario de Registro</h1>
           <Registro />
-          <Alert message="Mensaje de alerta aquí" type="danger" />
+         
         </Col>
       </Row>
     </Container>
