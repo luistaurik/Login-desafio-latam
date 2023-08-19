@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./Formulario.css"
 
 const Formulario = ({ onSuccess, onError }) => {
   const [nombre, setNombre] = useState("");
@@ -64,10 +65,9 @@ const Formulario = ({ onSuccess, onError }) => {
     <>
       <form className="formulario" onSubmit={validarDatos}>
         <div className="form-group">
-          <label>Nombre</label>
           <input
             type="text"
-            name="nombre"
+            placeholder="Nombre"
             className="form-control"
             onChange={(e) => setNombre(e.target.value)}
             value={nombre}
@@ -75,10 +75,10 @@ const Formulario = ({ onSuccess, onError }) => {
           {nombreError && <p className="text-danger">{nombreError}</p>}
         </div>
         <div className="form-group">
-          <label>Apellido</label>
           <input
             type="text"
             name="apellido"
+            placeholder="Apellido"
             className="form-control"
             onChange={(e) => setApellido(e.target.value)}
             value={apellido}
@@ -86,10 +86,10 @@ const Formulario = ({ onSuccess, onError }) => {
           {apellidoError && <p className="text-danger">{apellidoError}</p>}
         </div>
         <div className="form-group">
-          <label>Edad</label>
           <input
             type="number"
             name="edad"
+            placeholder="Edad"
             className="form-control"
             onChange={(e) => setEdad(e.target.value)}
             value={edad}
@@ -97,10 +97,10 @@ const Formulario = ({ onSuccess, onError }) => {
           {edadError && <p className="text-danger">{edadError}</p>}
         </div>
         <div className="form-group">
-          <label>Email</label>
           <input
             type="email"
             name="email"
+            placeholder="Email"
             className="form-control"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
@@ -108,18 +108,18 @@ const Formulario = ({ onSuccess, onError }) => {
           {emailError && <p className="text-danger">{emailError}</p>}
         </div>
         <div className="form-group">
-          <label>Confirmar Email</label>
           <input
             type="email"
             name="conemail"
+            placeholder="Confirmar Email"
             className="form-control"
             onChange={(e) => setConEmail(e.target.value)}
             value={conemail}
           />
           {conemailError && <p className="text-danger">{conemailError}</p>}
         </div>
-        <button type="submit" className="btn btn-primary">
-          Enviar
+        <button type="submit" className="btn btn-success">
+          Registrarse
         </button>
       </form>
     </>

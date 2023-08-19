@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SocialButton from './SocialButton';
 import Formulario from './Formulario';
+import "./Registro.css"
 import Alert from './Alert';
 
 const Registro = () => {
@@ -20,9 +21,10 @@ const Registro = () => {
 
   return (
     <div>
-      <SocialButton icon="fa-brands fa-facebook" />
-      <SocialButton icon="fa-brands fa-square-twitter" />
-      <SocialButton icon="fa-brands fa-github"/>
+      <SocialButton className="social-button" icon="fa-brands fa-facebook" />
+      <SocialButton className="social-button" icon="fa-brands fa-square-twitter" />
+      <SocialButton className="social-button" icon="fa-brands fa-github"/>
+      <p className='options-text'>O usa tu Email para registrarte.</p>
       <Formulario onSuccess={handleSuccess} onError={handleError} />
       
       {error && <Alert message={error} type="danger" />} {/* Mostrar el mensaje de error si existe */}

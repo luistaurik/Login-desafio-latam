@@ -1,4 +1,5 @@
 import React from 'react';
+import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import Registro from './components/Registro';
@@ -9,7 +10,7 @@ function App() {
     <Container className="mt-5">
       <Row>
         <Col>
-          <h1>Formulario de Registro</h1>
+          <h1 className='title'>Crea una cuenta</h1>
           <Registro />
          
         </Col>
