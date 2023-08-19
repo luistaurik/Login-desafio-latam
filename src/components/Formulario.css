@@ -12,8 +12,22 @@
     margin: 10px auto;
 }
 
+.error-border {
+    border: 1.5px solid rgb(231, 26, 26); 
+  }
+
 .form-group input {
     width: 30vw;
+}
+
+.form-group select {
+    width: 30vw;
+}
+
+.text-danger {
+    margin-bottom: 0;
+    font-size: 14px;
+    padding-bottom: 0;
 }
 
 .btn {

@@ -1,5 +1,5 @@
 import React from 'react';
-import "./SocialButton.css";
+import "./SocialButton.css"
 
 const SocialButton = ({ icon, onClick }) => {
   return (

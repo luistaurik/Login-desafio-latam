@@ -8,12 +8,14 @@ const Formulario = ({ onSuccess, onError }) => {
   const [edad, setEdad] = useState("");
   const [email, setEmail] = useState("");
   const [conemail, setConEmail] = useState("");
+  const [genero, setGenero] = useState("");
 
   const [nombreError, setNombreError] = useState("");
   const [apellidoError, setApellidoError] = useState("");
   const [edadError, setEdadError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [conemailError, setConEmailError] = useState("");
+  const [generoError, setGeneroError] = useState("");
 
   const validarDatos = (e) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ const Formulario = ({ onSuccess, onError }) => {
     setEdadError("");
     setEmailError("");
     setConEmailError("");
+    setGeneroError("");
 
     if (nombre === "") {
       setNombreError("El nombre es obligatorio");
@@ -46,20 +49,30 @@ const Formulario = ({ onSuccess, onError }) => {
     } else if (email !== conemail) {
       setConEmailError("Los correos electrónicos no coinciden");
     }
+    if (!genero || genero == "Selecciona") {
+      setGeneroError("Debes seleccionar un género");
+    }
 
     if (
       nombreError ||
       apellidoError ||
       edadError ||
       emailError ||
-      conemailError
+      conemailError ||
+      generoError
     ) {
       onError("Corrige los errores en el formulario");
       return;
     }
 
     onSuccess("Registro exitoso");
+    return;
   };
+
+  function refresh(onSuccess) {
+
+  }
+  
 
   return (
     <>
@@ -68,7 +81,7 @@ const Formulario = ({ onSuccess, onError }) => {
           <input
             type="text"
             placeholder="Nombre"
-            className="form-control"
+            className={`form-control ${nombreError ? "error-border" : ""}`}
             onChange={(e) => setNombre(e.target.value)}
             value={nombre}
           />
@@ -79,7 +92,7 @@ const Formulario = ({ onSuccess, onError }) => {
             type="text"
             name="apellido"
             placeholder="Apellido"
-            className="form-control"
+            className={`form-control ${apellidoError ? "error-border" : ""}`}
             onChange={(e) => setApellido(e.target.value)}
             value={apellido}
           />
@@ -90,7 +103,7 @@ const Formulario = ({ onSuccess, onError }) => {
             type="number"
             name="edad"
             placeholder="Edad"
-            className="form-control"
+            className={`form-control ${edadError ? "error-border" : ""}`}
             onChange={(e) => setEdad(e.target.value)}
             value={edad}
           />
@@ -101,7 +114,7 @@ const Formulario = ({ onSuccess, onError }) => {
             type="email"
             name="email"
             placeholder="Email"
-            className="form-control"
+            className={`form-control ${emailError ? "error-border" : ""}`}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
@@ -112,11 +125,20 @@ const Formulario = ({ onSuccess, onError }) => {
             type="email"
             name="conemail"
             placeholder="Confirmar Email"
-            className="form-control"
+            className={`form-control ${conemailError ? "error-border" : ""}`}
             onChange={(e) => setConEmail(e.target.value)}
             value={conemail}
           />
           {conemailError && <p className="text-danger">{conemailError}</p>}
+        </div>
+        <div className="form-group">
+          <select name="genero" placeholder="Genero" div className={`form-control ${generoError ? "error-border" : ""}`} onChange={(e) => setGenero(e.target.value)} value={genero}>
+            <option  selected value={"Selecciona"}>Selecciona</option>
+            <option value={"Hombre"}>Hombre</option>
+            <option value={"Mujer"}>Mujer</option>
+            <option value={"Reservado"}>Prefiero no decirlo</option>
+          </select>
+          {generoError && <p className="text-danger">{generoError}</p>}
         </div>
         <button type="submit" className="btn btn-success">
           Registrarse
