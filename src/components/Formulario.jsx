@@ -75,10 +75,6 @@ const Formulario = ({ onSuccess, onError }) => {
       return;
     }
   };
-
-  function refresh(onSuccess) {
-
-  }
   
 
   return (
