@@ -1,3 +1,7 @@
+
+// Profesor, el unico problema que no pudimos resolver es como hacer que las validaciones se hicieran en un solo click,
+// siempre habia que hacer dos validaciones.
+
 import React, { useState,useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Formulario.css"
@@ -72,7 +76,7 @@ const Formulario = () => {
     }
   };
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (
@@ -84,31 +88,44 @@ const Formulario = () => {
     !generoError &&
     !passwordError &&
     !confirmPasswordError &&
-    nombre &&
-    apellido &&
-    edad &&
-    email &&
-    conemail &&
-    genero &&
-    password &&
-    confirmPassword
+    !nombre ||
+    !apellido ||
+    !edad ||
+    edad < 18 ||
+    !email ||
+    !conemail||
+    !genero ||
+    !password ||
+    !confirmPassword
     ) {
-      setError("success");
+      setError(null);
+      return;
     } else if (
-      nombreError ||
-      apellidoError ||
-      edadError ||
-      emailError ||
-      conemailError ||
-      generoError ||
-      passwordError ||
-      confirmPasswordError
-    ) {
-      setError("error");
+        !nombreError &&
+        !apellidoError &&
+        !edadError &&
+        !emailError &&
+        !conemailError &&
+        !generoError &&
+        !passwordError &&
+        !confirmPasswordError &&
+        nombre &&
+        apellido &&
+        edad &&
+        email &&
+        conemail &&
+        genero &&
+        password &&
+        confirmPassword
+        )
+    {
+      setError("success");
+      return;
     } else {
-      setError("");
+      setError("error");
+      return;
     }
-  }, [
+  },[
     nombreError,
     apellidoError,
     edadError,
@@ -117,6 +134,14 @@ const Formulario = () => {
     generoError,
     passwordError,
     confirmPasswordError,
+    nombre,
+    apellido,
+    edad,
+    email,
+    conemail,
+    genero,
+    password,
+    confirmPassword,
   ]);
 
   return (
@@ -210,18 +235,18 @@ const Formulario = () => {
         <button type="submit" className="btn btn-success">
           Registrarse
         </button>
-        {(() => {
-        switch (error) {
-          case "":
-            return <Alert error={{ message: "Sin errores", type: "none", color: "info" }} />;
-          case "error":
-            return <Alert error={{ message: "Te falta completar campos obligatorios", type: "danger", color: "danger" }} />;
-          case "success":
-            return <Alert error={{ message: "Registro exitoso", type: "success", color: "success" }} />;
-          default:
-            return null;
-        }
-      })()}
+        {error !== null && (
+        <Alert
+          error={{
+            message:
+              error === "success"
+                ? "Registro exitoso"
+                : "Te falta completar campos obligatorios",
+            type: error === "success" ? "success" : "danger",
+            color: error === "success" ? "success" : "danger",
+          }}
+        />
+      )}
       </form>
     </>
   );
