@@ -1,10 +1,10 @@
 import React from 'react';
 import "./Alert.css"
 
-const Alert = ({ message, type }) => {
+const Alert = ({error}) => {
   return (
-    <div className={`alert alert-${type}`} role="alert">
-      {message}
+    <div className={`alert alert-${error.type} alert-${error.color}`} role="alert">
+      {error.message}
     </div>
   );
 };

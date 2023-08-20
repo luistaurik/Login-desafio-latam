@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Formulario.css"
+import Alert from "./Alert"
 
-const Formulario = ({ onSuccess, onError }) => {
+const Formulario = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [edad, setEdad] = useState("");
   const [email, setEmail] = useState("");
   const [conemail, setConEmail] = useState("");
   const [genero, setGenero] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [nombreError, setNombreError] = useState("");
   const [apellidoError, setApellidoError] = useState("");
@@ -16,16 +19,20 @@ const Formulario = ({ onSuccess, onError }) => {
   const [emailError, setEmailError] = useState("");
   const [conemailError, setConEmailError] = useState("");
   const [generoError, setGeneroError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const validarDatos = (e) => {
     e.preventDefault();
-
+    setError("");
     setNombreError("");
     setApellidoError("");
     setEdadError("");
     setEmailError("");
     setConEmailError("");
     setGeneroError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
 
     if (nombre === "") {
       setNombreError("El nombre es obligatorio");
@@ -53,29 +60,64 @@ const Formulario = ({ onSuccess, onError }) => {
       setGeneroError("Debes seleccionar un género");
     }
 
+    if (password === "") {
+      setPasswordError("La contraseña es obligatoria");
+    } else if (password.length < 4) {
+      setPasswordError("La contraseña debe tener al menos 4 caracteres");
+    }
+    if (confirmPassword === "") {
+      setConfirmPasswordError("Confirma tu contraseña");
+    } else if (password !== confirmPassword) {
+      setConfirmPasswordError("Las contraseñas no coinciden");
+    }
+  };
+
+  const [error, setError] = useState("");
+
+  useEffect(() => {
     if (
+    !nombreError &&
+    !apellidoError &&
+    !edadError &&
+    !emailError &&
+    !conemailError &&
+    !generoError &&
+    !passwordError &&
+    !confirmPasswordError &&
+    nombre &&
+    apellido &&
+    edad &&
+    email &&
+    conemail &&
+    genero &&
+    password &&
+    confirmPassword
+    ) {
+      setError("success");
+    } else if (
       nombreError ||
       apellidoError ||
       edadError ||
       emailError ||
       conemailError ||
-      generoError
+      generoError ||
+      passwordError ||
+      confirmPasswordError
     ) {
-      onError("Corrige los errores en el formulario");
-      return;
-    } else if (
-      !nombreError &&
-      !apellidoError &&
-      !edadError &&
-      !emailError &&
-      !conemailError &&
-      !generoError
-    ) {
-      onSuccess("Registro exitoso");
-      return;
+      setError("error");
+    } else {
+      setError("");
     }
-  };
-  
+  }, [
+    nombreError,
+    apellidoError,
+    edadError,
+    emailError,
+    conemailError,
+    generoError,
+    passwordError,
+    confirmPasswordError,
+  ]);
 
   return (
     <>
@@ -143,13 +185,46 @@ const Formulario = ({ onSuccess, onError }) => {
           </select>
           {generoError && <p className="text-danger">{generoError}</p>}
         </div>
+        <div className="form-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            className={`form-control ${conemailError ? "error-border" : ""}`}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+          {passwordError && <p className="text-danger">{passwordError}</p>}
+        </div>
+        <div className="form-group">
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirmar Contraseña"
+            className={`form-control ${conemailError ? "error-border" : ""}`}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
+          />
+          {confirmPasswordError && <p className="text-danger">{confirmPasswordError}</p>}
+        </div>
         <button type="submit" className="btn btn-success">
           Registrarse
         </button>
+        {(() => {
+        switch (error) {
+          case "":
+            return <Alert error={{ message: "Sin errores", type: "none", color: "info" }} />;
+          case "error":
+            return <Alert error={{ message: "Te falta completar campos obligatorios", type: "danger", color: "danger" }} />;
+          case "success":
+            return <Alert error={{ message: "Registro exitoso", type: "success", color: "success" }} />;
+          default:
+            return null;
+        }
+      })()}
       </form>
     </>
   );
-  console.log(generoError)
 };
 
 export default Formulario;

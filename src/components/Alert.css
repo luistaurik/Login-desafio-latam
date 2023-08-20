@@ -1,19 +1,25 @@
 .alert {
-    margin: 0;
+    margin: 10px;
     border-radius: 20px;
     font-weight: 600;
     font-size: 18px;
-    width: 90%;
+    width: 30vw;
+}
+
+.alert-none {
+    display: none;
 }
 
 .alert-danger {
     color: white;
     background-color: #dc3545;
     border: 0px;
+    display: auto;
 }
 
 .alert-success {
     color: white;
     background-color: #28a745;
     border: 0px;
+    display: auto;
 }
