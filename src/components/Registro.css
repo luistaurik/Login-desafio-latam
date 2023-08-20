@@ -15,3 +15,7 @@
 .social-section {
     display: flex;
 }
+
+.social-button {
+    border: 1px solid black;
+}
